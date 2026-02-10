@@ -21,7 +21,7 @@ RUN apt-get update && apt-get install -y \
     libdrm2 \
     libglib2.0-0 \
     libdbus-1-3 \
-    dbus \
+#    dbus \
     libxkbcommon0 \
     xauth \
     xdg-utils \
@@ -48,7 +48,7 @@ RUN chmod +x /opt/cursor/cursor.AppImage
 ENV ELECTRON_DISABLE_SANDBOX=1
 ENV NO_AT_BRIDGE=1
 
-# cursor run script
+# cursor run script. Without this it crashes because /tmp/ doesn't have exec permissions.
 COPY run-cursor.sh /usr/local/bin/run-cursor.sh
 RUN chmod +x /usr/local/bin/run-cursor.sh
 
