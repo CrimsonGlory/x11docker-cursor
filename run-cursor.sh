@@ -22,5 +22,10 @@ export TMPDIR
 export ELECTRON_DISABLE_SANDBOX=1
 export NO_AT_BRIDGE=1
 
+# fix Alt Gr key
+: "${KEYBOARD_LAYOUT:=us}"
+: "${XKB_OPTIONS:=lv3:ralt_switch}"
+setxkbmap -layout "$KEYBOARD_LAYOUT" -option "$XKB_OPTIONS"
+
 # Exec Cursor (replace shell so signals work)
 exec /opt/cursor/cursor.AppImage --appimage-extract-and-run --no-sandbox

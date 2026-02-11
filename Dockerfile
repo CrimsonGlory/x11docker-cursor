@@ -29,20 +29,26 @@ RUN apt-get update && apt-get install -y \
     libegl1 \
     libgl1 \
     libgles2 \
+    # sudo needed in case the user wants to sue --sudouser flag
+    sudo \
+    # xkb-data needed to make Alt+Gr key work.
+    xkb-data \
     && rm -rf /var/lib/apt/lists/*
 
+RUN apt-get update && apt-get install -y \
+    x11-xkb-utils
 #RUN apt-get update && apt-get install -y libfuse3-4 libfuse2t64
 
 # ---- download Cursor AppImage ----
 WORKDIR /opt/cursor
 
-#RUN cd /opt/cursor && \
-#    curl -L https://api2.cursor.sh/updates/download/golden/linux-x64/cursor/ \
-#    -o cursor.AppImage \
-#    && chmod +x cursor.AppImage
+RUN cd /opt/cursor && \
+    curl -L https://api2.cursor.sh/updates/download/golden/linux-x64/cursor/ \
+    -o cursor.AppImage \
+    && chmod +x cursor.AppImage
 
-COPY ./cursor.AppImage /opt/cursor/
-RUN chmod +x /opt/cursor/cursor.AppImage
+#COPY ./cursor.AppImage /opt/cursor/
+#RUN chmod +x /opt/cursor/cursor.AppImage
 
 # ---- Electron / AppImage container quirks ----
 ENV ELECTRON_DISABLE_SANDBOX=1
