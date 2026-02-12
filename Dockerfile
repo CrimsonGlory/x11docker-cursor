@@ -29,15 +29,19 @@ RUN apt-get update && apt-get install -y \
     libegl1 \
     libgl1 \
     libgles2 \
-    # sudo needed in case the user wants to sue --sudouser flag
+    # sudo needed in case the user wants to sue --sudouser flag: \
     sudo \
     # xkb-data needed to make Alt+Gr key work.
     xkb-data \
     && rm -rf /var/lib/apt/lists/*
 
 RUN apt-get update && apt-get install -y \
+    # to make remote ssh plugin work: \
     openssh-client \
-    x11-xkb-utils
+    # to make Alt Gr work: \
+    x11-xkb-utils \
+    # so that cursor window can maximize if Xephyr window increases beyond initial size: \
+    x11-xserver-utils
 #RUN apt-get update && apt-get install -y libfuse3-4 libfuse2t64
 
 # ---- download Cursor AppImage ----
