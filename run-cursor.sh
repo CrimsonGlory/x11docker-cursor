@@ -26,6 +26,6 @@ export NO_AT_BRIDGE=1
 : "${KEYBOARD_LAYOUT:=us}"
 : "${XKB_OPTIONS:=lv3:ralt_switch}"
 setxkbmap -layout "$KEYBOARD_LAYOUT" -option "$XKB_OPTIONS"
-
+xev -root -event randr | while read -r _; do xrandr; done &
 # Exec Cursor (replace shell so signals work)
 exec /opt/cursor/cursor.AppImage --appimage-extract-and-run --no-sandbox
