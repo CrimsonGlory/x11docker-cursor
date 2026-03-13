@@ -41,19 +41,13 @@ RUN apt-get update && apt-get install -y \
     # to make Alt Gr work: \
     x11-xkb-utils \
     # so that cursor window can maximize if Xephyr window increases beyond initial size: \
-    x11-xserver-utils
+    x11-xserver-utils \
+    # to download cursor
+    wget
 #RUN apt-get update && apt-get install -y libfuse3-4 libfuse2t64
 
-# ---- download Cursor AppImage ----
+# ---- folder for cursor ----
 WORKDIR /opt/cursor
-
-RUN cd /opt/cursor && \
-    curl -L https://api2.cursor.sh/updates/download/golden/linux-x64/cursor/ \
-    -o cursor.AppImage \
-    && chmod +x cursor.AppImage
-
-#COPY ./cursor.AppImage /opt/cursor/
-#RUN chmod +x /opt/cursor/cursor.AppImage
 
 # ---- Electron / AppImage container quirks ----
 ENV ELECTRON_DISABLE_SANDBOX=1
