@@ -37,10 +37,21 @@ xev -root -event randr | while read -r _; do xrandr; done &
 # be stored on a mounted folder. If we download Cursor on the Dockerfile, the first
 # execution (with a mounted folder) will have an empty folder (unless we hosted
 # the binary on the git repo).
+echo "ls -l /opt/ :"
+ls -l /opt/
+echo "ls -l /opt/cursor/ :"
+ls -l /opt/cursor/
 echo "Downloading cursor"
-wget --no-clobber -O /opt/cursor/cursor.AppImage https://api2.cursor.sh/updates/download/golden/linux-x64/cursor/ || echo "Cursor file already exists"
-echo "Checking if cursor.AppImage exists"
+wget --output-file=/tmp/wget.log --no-clobber -O /opt/cursor/cursor.AppImage https://api2.cursor.sh/updates/download/golden/linux-x64/cursor/ #|| echo "Cursor file already exists or wget failed"
+echo "ls -l /tmp/wget.log: "
+ls -l /tmp/wget.log
+cat /tmp/wget.log
+echo "ls -l /opt/cursor/ :"
+ls -l /opt/cursor/
+echo "Checking if cursor.AppImage exists:"
 test -e /opt/cursor/cursor.AppImage
+echo "Adding execution permission to cursor.AppImage:"
 chmod +x /opt/cursor/cursor.AppImage
 # Exec Cursor (replace shell so signals work)
+echo "exec cursor..."
 exec /opt/cursor/cursor.AppImage --appimage-extract-and-run --no-sandbox

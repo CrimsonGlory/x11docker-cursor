@@ -42,8 +42,13 @@ RUN apt-get update && apt-get install -y \
     x11-xkb-utils \
     # so that cursor window can maximize if Xephyr window increases beyond initial size: \
     x11-xserver-utils \
-    # to download cursor
-    wget
+    # to download cursor \
+    wget \
+    # optional if you want to keep clipboard setting container to host only and do some  \
+    # hackish with xclip+nvim when you need host-to-container copying once. \
+    xclip \
+    # optional: just in case \
+    vim
 #RUN apt-get update && apt-get install -y libfuse3-4 libfuse2t64
 
 # ---- folder for cursor ----
@@ -56,5 +61,6 @@ ENV NO_AT_BRIDGE=1
 # cursor run script. Without this it crashes because /tmp/ doesn't have exec permissions.
 COPY run-cursor.sh /usr/local/bin/run-cursor.sh
 RUN chmod +x /usr/local/bin/run-cursor.sh
+RUN chmod 777 /opt/cursor/
 
 CMD ["/usr/local/bin/run-cursor.sh"]
