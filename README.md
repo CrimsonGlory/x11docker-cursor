@@ -4,6 +4,7 @@ Run Cursor inside docker with [x11docker](https://github.com/mviereck/x11docker)
 - docker
 - x11docker
 - Xephyr
+- xclip
 
 # How to execute
 The parameters of x11docker will depend on your needs.I have tested it with ```x11docker --network -- --shm-size=1g -- cursor``` and Xephyr installed on the host. If  Xephyr is not installed on the host, there are other alternatives. Check the x11docker documentation. ```---shm-size=1g``` is needed because the default docker shm-size is 64MiB, and Cursor crashes with error 5.
@@ -26,8 +27,11 @@ The final result is:
 # Authentication
 In order to perform authentication on Cursor a browser is needed. Given that there is no browser inside the container we will have to copy the link and open it outside the container. x11docker clipboard has to be enabled for this. Execute it with ```--clipboard=c2h```. Make right click on the ```sign in``` button and then "```copy sign in link```". Paste it on your browser on the host and continue the steps.
 
+# Clipboard
+x11docker has three options for the clipboard parameter. The most comfortable is the bidirectional clipboard, but breaks isolation. A most secure is none, but it is impractical. A good trade-off is c2h (container to host) plus using the script copy_clipboard.sh to copy host clipboard contents to the container (xclip is needed on the host).
+
 # Motivation
-Cursor is closed source, and running it in a VM is not very confortable. There are other cursor-on-docker solutions but they all are the cursor-inside-browser kind of solution, and that way there are shortcuts that you cannot use. Why x11docker? To execute it with the least privileges possible (if connected to the X11 server directly, it would be able to capture all the keystrokes)
+Cursor is closed source, and running it in a VM is not very comfortable. There are other cursor-on-docker solutions but they all are the cursor-inside-browser kind of solution, and that way there are shortcuts that you cannot use. Why x11docker? To execute it with the least privileges possible (if connected to the X11 server directly, it would be able to capture all the keystrokes)
 
 # To Do
 Dockerfile can be trimmed further.
