@@ -31,7 +31,7 @@ In order to perform authentication on Cursor a browser is needed. Given that the
 x11docker has three options for the clipboard parameter. The most comfortable is the bidirectional clipboard, but breaks isolation. A most secure is none, but it is impractical. A good trade-off is c2h (container to host) plus using the script copy_clipboard.sh to copy host clipboard contents to the container (xclip is needed on the host).
 
 # Motivation
-Cursor is closed source, and running it in a VM is not very comfortable. There are other cursor-on-docker solutions but they all are the cursor-inside-browser kind of solution, and that way there are shortcuts that you cannot use. Why x11docker? To execute it with the least privileges possible (if connected to the X11 server directly, it would be able to capture all the keystrokes)
+Cursor is closed source, and running it in a VM is not very comfortable. There are other cursor-on-docker solutions but they all are the cursor-inside-browser kind of solution, which has its pro (use it from everywhere) and cons (you no longer have shortcuts). Why x11docker? To execute it with the least privileges possible (if connected to the X11 server directly, it would be able to capture all the keystrokes). If you want cursor-inside-browser check [curosor-in-browser](https://github.com/CrimsonGlory/cursor-in-browser).
 
 # To Do
 Dockerfile can be trimmed further.
